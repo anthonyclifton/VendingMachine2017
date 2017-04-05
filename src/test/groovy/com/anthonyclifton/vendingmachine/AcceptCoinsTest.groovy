@@ -48,5 +48,14 @@ class AcceptCoinsTest {
         assert vendingMachine.currentAmount == 0.05
     }
 
+    @Test
+    void valid_multiple_coins_added_to_currentAmount() {
+        vendingMachine.insertCoin(Coin.NICKEL)
+        vendingMachine.insertCoin(Coin.DIME)
+        vendingMachine.insertCoin(Coin.QUARTER)
+
+        assert vendingMachine.currentAmount == 0.40
+    }
+
 
 }
