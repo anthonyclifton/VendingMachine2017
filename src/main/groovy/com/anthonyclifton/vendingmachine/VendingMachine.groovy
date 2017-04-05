@@ -12,6 +12,7 @@ class VendingMachine {
     BigDecimal currentAmount = 0.0
     List<Coin> coinReturn = []
     List<Product> dispenser = []
+    Product lastProduct
 
     void insertCoin(Coin coin) {
         if (Coin.DIME.size == coin.size && Coin.DIME.weight == coin.weight) {
@@ -30,6 +31,9 @@ class VendingMachine {
             dispenser << product
             currentState = DisplayState.DISPENSED
             currentAmount = 0.0
+        } else {
+            lastProduct = product
+            currentState = DisplayState.PRICE
         }
     }
 
@@ -41,6 +45,9 @@ class VendingMachine {
             case DisplayState.DISPENSED:
                 currentState = DisplayState.WAITING
                 return THANK_YOU
+            case DisplayState.PRICE:
+                currentState = DisplayState.WAITING
+                return "PRICE ${lastProduct.cost}"
         }
     }
 }

@@ -31,6 +31,7 @@ class SelectProductTest {
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
+
         vendingMachine.pressButton(Product.COLA)
 
         assert vendingMachine.dispenser.contains(Product.COLA)
@@ -43,6 +44,7 @@ class SelectProductTest {
     void chips_vended_when_adequate_money_is_inserted() {
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
+
         vendingMachine.pressButton(Product.CHIPS)
 
         assert vendingMachine.dispenser.contains(Product.CHIPS)
@@ -58,11 +60,25 @@ class SelectProductTest {
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.DIME)
         vendingMachine.insertCoin(Coin.NICKEL)
+
         vendingMachine.pressButton(Product.CANDY)
 
         assert vendingMachine.dispenser.contains(Product.CANDY)
         assertEquals('THANK YOU', vendingMachine.getDisplay())
         assertEquals('INSERT COIN', vendingMachine.getDisplay())
         assertEquals(0.0, vendingMachine.currentAmount)
+    }
+
+    @Test
+    void product_not_vended_when_inadequate_money_is_inserted() {
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+
+        vendingMachine.pressButton(Product.COLA)
+
+        assert !vendingMachine.dispenser.contains(Product.COLA)
+        assertEquals("PRICE ${Product.COLA.cost}", vendingMachine.getDisplay())
+        assertEquals('0.75', vendingMachine.getDisplay())
     }
 }
