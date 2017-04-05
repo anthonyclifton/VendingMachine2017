@@ -26,7 +26,7 @@ class SelectProductTest {
     }
 
     @Test
-    void product_vended_when_adequate_money_is_inserted() {
+    void cola_vended_when_adequate_money_is_inserted() {
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
@@ -34,6 +34,25 @@ class SelectProductTest {
         vendingMachine.pressButton(Product.COLA)
 
         assert vendingMachine.dispenser.contains(Product.COLA)
-        //assertEquals(vendingMachine.getDisplay(), 'THANK YOU')
+    }
+
+    @Test
+    void chips_vended_when_adequate_money_is_inserted() {
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.pressButton(Product.CHIPS)
+
+        assert vendingMachine.dispenser.contains(Product.CHIPS)
+    }
+
+    @Test
+    void candy_vended_when_adequate_money_is_inserted() {
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.DIME)
+        vendingMachine.insertCoin(Coin.NICKEL)
+        vendingMachine.pressButton(Product.CANDY)
+
+        assert vendingMachine.dispenser.contains(Product.CANDY)
     }
 }
