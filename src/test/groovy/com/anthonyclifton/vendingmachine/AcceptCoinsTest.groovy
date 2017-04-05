@@ -40,4 +40,13 @@ class AcceptCoinsTest {
 
         assert vendingMachine.currentAmount == 0.10
     }
+
+    @Test
+    void valid_nickel_coin_added_to_currentAmount() {
+        vendingMachine.insertCoin(Coin.NICKEL)
+
+        assert vendingMachine.currentAmount == 0.05
+    }
+
+
 }
