@@ -9,6 +9,7 @@ class VendingMachine {
 
     BigDecimal currentAmount = 0.0
     List<Coin> coinReturn = []
+    List<Product> dispenser = []
 
     void insertCoin(Coin coin) {
         if (Coin.DIME.size == coin.size && Coin.DIME.weight == coin.weight) {
@@ -19,6 +20,12 @@ class VendingMachine {
             currentAmount += NICKEL_VALUE
         } else {
             coinReturn << coin
+        }
+    }
+
+    void pressButton(Product product) {
+        if (product.cost <= currentAmount) {
+            dispenser << product
         }
     }
 
