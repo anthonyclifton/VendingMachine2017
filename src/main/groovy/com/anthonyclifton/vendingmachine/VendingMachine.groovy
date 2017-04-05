@@ -1,6 +1,8 @@
 package com.anthonyclifton.vendingmachine
 
 class VendingMachine {
+    private static String INSERT_COIN = 'INSERT COIN'
+
     BigDecimal currentAmount = 0.0
 
     void insertCoin(Coin coin) {
@@ -14,6 +16,6 @@ class VendingMachine {
     }
 
     String getDisplay() {
-        currentAmount
+        currentAmount ? currentAmount : INSERT_COIN
     }
 }

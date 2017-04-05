@@ -73,4 +73,9 @@ class AcceptCoinsTest {
 
         assertEquals(vendingMachine.getDisplay(), '0.25')
     }
+
+    @Test
+    void display_insert_coin_when_currentAmount_is_zero() {
+        assertEquals(vendingMachine.getDisplay(), 'INSERT COIN')
+    }
 }
