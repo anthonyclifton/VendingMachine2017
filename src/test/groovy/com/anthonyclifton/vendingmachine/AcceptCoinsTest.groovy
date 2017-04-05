@@ -33,21 +33,21 @@ class AcceptCoinsTest {
     void valid_quarter_coin_added_to_currentAmount() {
         vendingMachine.insertCoin(Coin.QUARTER)
 
-        assert vendingMachine.currentAmount == 0.25
+        assert 0.25 == vendingMachine.currentAmount
     }
 
     @Test
     void valid_dime_coin_added_to_currentAmount() {
         vendingMachine.insertCoin(Coin.DIME)
 
-        assert vendingMachine.currentAmount == 0.10
+        assert 0.10 == vendingMachine.currentAmount
     }
 
     @Test
     void valid_nickel_coin_added_to_currentAmount() {
         vendingMachine.insertCoin(Coin.NICKEL)
 
-        assert vendingMachine.currentAmount == 0.05
+        assert 0.05 == vendingMachine.currentAmount
     }
 
     @Test
@@ -56,7 +56,7 @@ class AcceptCoinsTest {
         vendingMachine.insertCoin(Coin.DIME)
         vendingMachine.insertCoin(Coin.QUARTER)
 
-        assert vendingMachine.currentAmount == 0.40
+        assert 0.40 == vendingMachine.currentAmount
     }
 
 
@@ -64,19 +64,19 @@ class AcceptCoinsTest {
     void invalid_penny_coin_rejected_not_added_to_currentAmount() {
         vendingMachine.insertCoin(Coin.PENNY)
 
-        assert vendingMachine.currentAmount == 0.0
+        assert 0.0 == vendingMachine.currentAmount
     }
 
     @Test
     void display_displays_currentAmount() {
         vendingMachine.insertCoin(Coin.QUARTER)
 
-        assertEquals(vendingMachine.getDisplay(), '0.25')
+        assertEquals('0.25', vendingMachine.getDisplay())
     }
 
     @Test
     void display_insert_coin_when_currentAmount_is_zero() {
-        assertEquals(vendingMachine.getDisplay(), 'INSERT COIN')
+        assertEquals('INSERT COIN', vendingMachine.getDisplay())
     }
 
     @Test
