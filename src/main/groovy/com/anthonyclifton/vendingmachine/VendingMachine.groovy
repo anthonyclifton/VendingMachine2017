@@ -4,6 +4,10 @@ class VendingMachine {
     BigDecimal currentAmount
 
     void insertCoin(Coin coin) {
-        currentAmount = 0.25
+        if (coin.size == 1.0 && coin.weight == 2.0) {
+            currentAmount = 0.10
+        } else if (coin.size == 3.0 && coin.weight == 4.0) {
+            currentAmount = 0.25
+        }
     }
 }
