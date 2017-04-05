@@ -15,8 +15,8 @@ import static junit.framework.Assert.assertEquals
  * Rejected coins are placed in the coin return.
  *
  * NOTE:  The temptation here will be to create Coin objects that know their value.
- * However, this is not how a real vending machine works.  Instead, it identifies coins by their weight
- * and size and then assigns a value to what was inserted. You will need to do something similar.
+ * However, this is not how a real vending machine works.  Instead, it identifies coins by their weightInGrams
+ * and sizeInMillimeters and then assigns a value to what was inserted. You will need to do something similar.
  * This can be simulated using strings, constants, enums, symbols, or something of that nature.
  */
 

@@ -15,11 +15,11 @@ class VendingMachine {
     Product lastProduct
 
     void insertCoin(Coin coin) {
-        if (Coin.DIME.size == coin.size && Coin.DIME.weight == coin.weight) {
+        if (Coin.DIME.sizeInMillimeters == coin.sizeInMillimeters && Coin.DIME.weightInGrams == coin.weightInGrams) {
             currentAmount += DIME_VALUE
-        } else if (Coin.QUARTER.size == coin.size && Coin.QUARTER.weight == coin.weight) {
+        } else if (Coin.QUARTER.sizeInMillimeters == coin.sizeInMillimeters && Coin.QUARTER.weightInGrams == coin.weightInGrams) {
             currentAmount += QUARTER_VALUE
-        } else if (Coin.NICKEL.size == coin.size && Coin.NICKEL.weight == coin.weight) {
+        } else if (Coin.NICKEL.sizeInMillimeters == coin.sizeInMillimeters && Coin.NICKEL.weightInGrams == coin.weightInGrams) {
             currentAmount += NICKEL_VALUE
         } else {
             coinReturn << coin
