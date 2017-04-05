@@ -3,6 +3,8 @@ package com.anthonyclifton.vendingmachine
 import org.junit.Before
 import org.junit.Test
 
+import static junit.framework.Assert.assertEquals
+
 /**
  * As a vendor I want a vending machine that accepts coins
  * So that I can collect money from the customer
@@ -63,5 +65,12 @@ class AcceptCoinsTest {
         vendingMachine.insertCoin(Coin.PENNY)
 
         assert vendingMachine.currentAmount == 0.0
+    }
+
+    @Test
+    void display_displays_currentAmount() {
+        vendingMachine.insertCoin(Coin.QUARTER)
+
+        assertEquals(vendingMachine.getDisplay(), '0.25')
     }
 }

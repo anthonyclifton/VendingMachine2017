@@ -12,4 +12,8 @@ class VendingMachine {
             currentAmount += 0.05
         }
     }
+
+    String getDisplay() {
+        currentAmount
+    }
 }
