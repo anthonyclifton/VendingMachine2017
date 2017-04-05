@@ -29,6 +29,8 @@ class SelectProductTest {
     void product_vended_when_adequate_money_is_inserted() {
         vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
         vendingMachine.pressButton(Product.COLA)
 
         assert vendingMachine.dispenser.contains(Product.COLA)
