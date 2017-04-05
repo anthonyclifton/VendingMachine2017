@@ -29,6 +29,7 @@ class VendingMachine {
         if (product.cost <= currentAmount) {
             dispenser << product
             currentState = DisplayState.DISPENSED
+            currentAmount = 0.0
         }
     }
 
