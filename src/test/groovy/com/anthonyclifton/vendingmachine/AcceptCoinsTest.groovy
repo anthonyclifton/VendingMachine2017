@@ -78,4 +78,12 @@ class AcceptCoinsTest {
     void display_insert_coin_when_currentAmount_is_zero() {
         assertEquals(vendingMachine.getDisplay(), 'INSERT COIN')
     }
+
+    @Test
+    void rejected_coins_are_placed_in_the_coin_return() {
+        vendingMachine.insertCoin(Coin.PENNY)
+        vendingMachine.insertCoin(Coin.PENNY)
+
+        assert 2 == vendingMachine.coinReturn.findAll { it == Coin.PENNY }.size()
+    }
 }
