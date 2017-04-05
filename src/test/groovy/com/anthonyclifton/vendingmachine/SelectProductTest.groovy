@@ -81,4 +81,14 @@ class SelectProductTest {
         assertEquals("PRICE ${Product.COLA.cost}", vendingMachine.getDisplay())
         assertEquals('0.75', vendingMachine.getDisplay())
     }
+
+    @Test
+    void product_not_vended_when_no_money_is_inserted() {
+
+        vendingMachine.pressButton(Product.COLA)
+
+        assert !vendingMachine.dispenser.contains(Product.COLA)
+        assertEquals("PRICE ${Product.COLA.cost}", vendingMachine.getDisplay())
+        assertEquals('INSERT COIN', vendingMachine.getDisplay())
+    }
 }
