@@ -34,6 +34,7 @@ class SelectProductTest {
         vendingMachine.pressButton(Product.COLA)
 
         assert vendingMachine.dispenser.contains(Product.COLA)
+        assertEquals('THANK YOU', vendingMachine.getDisplay())
     }
 
     @Test
@@ -43,6 +44,7 @@ class SelectProductTest {
         vendingMachine.pressButton(Product.CHIPS)
 
         assert vendingMachine.dispenser.contains(Product.CHIPS)
+        assertEquals('THANK YOU', vendingMachine.getDisplay())
     }
 
     @Test
@@ -54,5 +56,6 @@ class SelectProductTest {
         vendingMachine.pressButton(Product.CANDY)
 
         assert vendingMachine.dispenser.contains(Product.CANDY)
+        assertEquals('THANK YOU', vendingMachine.getDisplay())
     }
 }

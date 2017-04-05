@@ -2,11 +2,13 @@ package com.anthonyclifton.vendingmachine
 
 class VendingMachine {
     private static String INSERT_COIN = 'INSERT COIN'
+    private static String THANK_YOU = 'THANK YOU'
 
     private static BigDecimal DIME_VALUE = 0.10
     private static BigDecimal QUARTER_VALUE = 0.25
     private static BigDecimal NICKEL_VALUE = 0.05
 
+    DisplayState currentState = DisplayState.WAITING
     BigDecimal currentAmount = 0.0
     List<Coin> coinReturn = []
     List<Product> dispenser = []
@@ -26,10 +28,18 @@ class VendingMachine {
     void pressButton(Product product) {
         if (product.cost <= currentAmount) {
             dispenser << product
+            currentState = DisplayState.DISPENSED
         }
     }
 
     String getDisplay() {
-        currentAmount ? currentAmount : INSERT_COIN
+        switch (currentState) {
+            case DisplayState.WAITING:
+                return currentAmount ? currentAmount : INSERT_COIN
+                break
+            case DisplayState.DISPENSED:
+                currentState = DisplayState.WAITING
+                return THANK_YOU
+        }
     }
 }
