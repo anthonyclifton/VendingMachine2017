@@ -11,7 +11,8 @@ package com.anthonyclifton.vendingmachine
 enum Coin {
     DIME(1.0,2.0),
     QUARTER(3.0,4.0),
-    NICKEL(5.0, 6.0)
+    NICKEL(5.0, 6.0),
+    PENNY(7.0, 8.0)
 
     float size
     float weight

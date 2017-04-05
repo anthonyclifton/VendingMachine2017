@@ -58,4 +58,10 @@ class AcceptCoinsTest {
     }
 
 
+    @Test
+    void invalid_penny_coin_rejected_not_added_to_currentAmount() {
+        vendingMachine.insertCoin(Coin.PENNY)
+
+        assert vendingMachine.currentAmount == 0.0
+    }
 }
