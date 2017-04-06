@@ -1,8 +1,5 @@
 package com.anthonyclifton.vendingmachine
 
-/**
- * Created by anthonyclifton on 4/5/17.
- */
 enum Product {
     COLA(1.00),
     CHIPS(0.50),

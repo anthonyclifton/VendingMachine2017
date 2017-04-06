@@ -38,6 +38,11 @@ class VendingMachine {
         }
     }
 
+    void returnCoins() {
+        coinReturn.addAll(makeChange(currentAmount))
+        currentAmount = 0.0
+    }
+
     String getDisplay() {
         switch (currentState) {
             case DisplayState.WAITING:
