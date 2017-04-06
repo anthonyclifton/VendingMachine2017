@@ -35,8 +35,8 @@ class VendingMachine {
         } else if (product.cost <= currentAmount) {
             dispenser << product
             currentState = DisplayState.DISPENSED
-            currentAmount = 0.0
             coinReturn.addAll(makeChange(currentAmount - product.cost))
+            currentAmount = 0.0
         } else {
             lastProduct = product
             currentState = DisplayState.PRICE
@@ -69,16 +69,16 @@ class VendingMachine {
     }
 
     private static List<Coin> makeChange(BigDecimal change) {
-            List<Coin> coins = []
+        List<Coin> coins = []
 
-            int quarters = change / 0.25
-            int dimes = (change - quarters * 0.25) / 0.10
-            int nickels = (change - (quarters * 0.25) - (dimes * 0.10)) / 0.05
+        int quarters = change / 0.25
+        int dimes = (change - quarters * 0.25) / 0.10
+        int nickels = (change - (quarters * 0.25) - (dimes * 0.10)) / 0.05
 
-            [1..quarters].each { coins.add(Coin.QUARTER) }
-            [1..dimes].each { coins.add(Coin.DIME) }
-            [1..nickels].each { coins.add(Coin.NICKEL) }
+        if (quarters) (1..quarters).each { coins.add(Coin.QUARTER) }
+        if (dimes) (1..dimes).each { coins.add(Coin.DIME) }
+        if (nickels) (1..nickels).each { coins.add(Coin.NICKEL) }
 
-            return coins
+        return coins
     }
 }

@@ -1,6 +1,7 @@
 package com.anthonyclifton.vendingmachine
 
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
 import static junit.framework.Assert.assertEquals
@@ -58,5 +59,36 @@ class MakeChangeTest {
         assert 1 == vendingMachine.coinReturn.findAll { it == Coin.QUARTER }.size()
         assert 1 == vendingMachine.coinReturn.findAll { it == Coin.DIME }.size()
         assert 1 == vendingMachine.coinReturn.findAll { it == Coin.NICKEL }.size()
+    }
+
+    @Test
+    void when_excess_money_is_entered_return_change_that_customer_didnt_insert() {
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+        vendingMachine.insertCoin(Coin.QUARTER)
+
+        vendingMachine.pressButton(Product.CANDY)
+
+        assert vendingMachine.dispenser.contains(Product.CANDY)
+        assertEquals('THANK YOU', vendingMachine.getDisplay())
+        assertEquals('INSERT COIN', vendingMachine.getDisplay())
+        assertEquals(0.0, vendingMachine.currentAmount)
+
+        assert 1 == vendingMachine.coinReturn.findAll { it == Coin.DIME }.size()
+    }
+
+    @Test
+    void when_excess_money_is_entered_return_more_complex_change_that_customer_didnt_insert() {
+        (1..5).each { vendingMachine.insertCoin(Coin.QUARTER) }
+        (1..7).each { vendingMachine.insertCoin(Coin.NICKEL) }
+
+        vendingMachine.pressButton(Product.CANDY)
+
+        assert vendingMachine.dispenser.contains(Product.CANDY)
+        assertEquals('THANK YOU', vendingMachine.getDisplay())
+        assertEquals('INSERT COIN', vendingMachine.getDisplay())
+        assertEquals(0.0, vendingMachine.currentAmount)
+
+        assert 2 == vendingMachine.coinReturn.findAll { it == Coin.DIME }.size()
     }
 }
