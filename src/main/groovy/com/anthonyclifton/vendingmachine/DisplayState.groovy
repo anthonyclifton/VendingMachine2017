@@ -3,5 +3,6 @@ package com.anthonyclifton.vendingmachine
 enum DisplayState {
     WAITING,
     DISPENSED,
-    PRICE
+    PRICE,
+    SOLD_OUT
 }

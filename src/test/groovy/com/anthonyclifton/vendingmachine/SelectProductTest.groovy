@@ -23,6 +23,7 @@ class SelectProductTest {
     @Before
     void setup() {
         vendingMachine = new VendingMachine()
+        vendingMachine.inventory = [(Product.CHIPS): 1, (Product.COLA): 1, (Product.CANDY): 1]
     }
 
     @Test

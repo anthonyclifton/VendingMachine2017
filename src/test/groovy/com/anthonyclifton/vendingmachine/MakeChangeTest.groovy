@@ -4,8 +4,6 @@ import org.junit.Before
 import org.junit.Test
 
 import static junit.framework.Assert.assertEquals
-import static junit.framework.Assert.assertEquals
-import static junit.framework.Assert.assertEquals
 
 /**
  * As a vendor I want customers to receive correct change so that they will use the vending machine again
@@ -21,6 +19,7 @@ class MakeChangeTest {
     @Before
     void setup() {
         vendingMachine = new VendingMachine()
+        vendingMachine.inventory = [(Product.CHIPS): 1, (Product.COLA): 1, (Product.CANDY): 1]
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.anthonyclifton.vendingmachine
 class VendingMachine {
     private static String INSERT_COIN = 'INSERT COIN'
     private static String THANK_YOU = 'THANK YOU'
+    private static String SOLD_OUT = 'SOLD OUT'
 
     private static BigDecimal DIME_VALUE = 0.10
     private static BigDecimal QUARTER_VALUE = 0.25
@@ -13,6 +14,8 @@ class VendingMachine {
     List<Coin> coinReturn = []
     List<Product> dispenser = []
     Product lastProduct
+    Map<Product, Integer> inventory = [:]
+
 
     void insertCoin(Coin coin) {
         if (Coin.DIME.sizeInMillimeters == coin.sizeInMillimeters && Coin.DIME.weightInGrams == coin.weightInGrams) {
@@ -27,7 +30,9 @@ class VendingMachine {
     }
 
     void pressButton(Product product) {
-        if (product.cost <= currentAmount) {
+        if (inventory[product] < 1) {
+            currentState = DisplayState.SOLD_OUT
+        } else if (product.cost <= currentAmount) {
             dispenser << product
             currentState = DisplayState.DISPENSED
             currentAmount = 0.0
@@ -51,9 +56,15 @@ class VendingMachine {
             case DisplayState.DISPENSED:
                 currentState = DisplayState.WAITING
                 return THANK_YOU
+                break
             case DisplayState.PRICE:
                 currentState = DisplayState.WAITING
                 return "PRICE ${lastProduct.cost}"
+                break
+            case DisplayState.SOLD_OUT:
+                currentState = DisplayState.WAITING
+                return SOLD_OUT
+                break
         }
     }
 
