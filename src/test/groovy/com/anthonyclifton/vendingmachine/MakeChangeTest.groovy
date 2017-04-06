@@ -21,6 +21,10 @@ class MakeChangeTest {
     void setup() {
         vendingMachine = new VendingMachine()
         vendingMachine.inventory = [(Product.CHIPS): 1, (Product.COLA): 1, (Product.CANDY): 1]
+
+        vendingMachine.vault = [(Coin.QUARTER): 0,
+                                (Coin.DIME): 2,
+                                (Coin.NICKEL): 1]
     }
 
     @Test

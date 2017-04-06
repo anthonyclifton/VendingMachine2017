@@ -20,6 +20,10 @@ class ReturnCoinsTest {
     @Before
     void setup() {
         vendingMachine = new VendingMachine()
+
+        vendingMachine.vault = [(Coin.QUARTER): 0,
+                                (Coin.DIME): 2,
+                                (Coin.NICKEL): 1]
     }
 
     @Test
