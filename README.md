@@ -11,6 +11,7 @@ This implementation uses Gradle and Gradle Wrapper for portability.  You can use
 to build and test the code:  clean, build, test.
 
 To build without tests: `./gradlew clean build -x test`
+
 To run tests: `./gradlew clean test`
 
 Features
