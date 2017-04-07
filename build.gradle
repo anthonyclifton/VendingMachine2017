@@ -5,19 +5,13 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-    }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
-
-bootRepackage.enabled = false
 
 repositories {
     mavenCentral()
