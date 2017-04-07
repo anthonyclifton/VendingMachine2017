@@ -1,5 +1,7 @@
 package com.anthonyclifton.vendingmachine
 
+import java.math.MathContext
+
 class VendingMachine {
     private static String INSERT_COIN = 'INSERT COIN'
     private static String THANK_YOU = 'THANK YOU'
@@ -85,30 +87,14 @@ class VendingMachine {
         return coins
     }
 
-    /**
-     * TODO: Verify and, if necessary, improve this method
-     * After some experimental spreadsheeting, it appears that
-     * there's no combination of coins a customer
-     * can insert where you can't make exact change as long as you have two
-     * dimes and a nickel.  There are values just above the price such as
-     * 0.75 versus cost of 0.65 where you have to give back a dime.  If you
-     * insert 6 dimes and a quarter, you have to give back 2 dimes.  And so on.
-     *
-     * I have a makeChange() method that returns change in the most efficient
-     * way for a given amount.  To test my theory, I could start with the
-     * coins returned for each product cost and break those down recursively into all
-     * the combinations that total to the exact cost.
-     *
-     * Then, for each combination,
-     * remove one coin of each size and replace it with the next larger size.
-     * I would need to be able to make change for the difference between that
-     * total and the product cost.  The minimum change needed in the vault
-     * would probably be the Greatest Common Multiple of all the cases.
-     *
-     * For the moment, I'll use my simplistic assumption and then write a better
-     * test to see if I need a more complex algorithm here.
-     */
     private boolean isExactChangeRequired() {
-        vault[(Coin.DIME)] < 2 || vault[(Coin.NICKEL)] < 1
+        Product.values().find { Product product ->
+            BigDecimal change = (Math.ceil(product.cost) - product.cost)
+            List<Coin> changeCoins = makeChange(change.round(new MathContext(2)))
+            if (vault[Coin.QUARTER] < changeCoins.findAll { it == Coin.QUARTER}.size()) return true
+            if (vault[Coin.DIME] < changeCoins.findAll { it == Coin.DIME}.size()) return true
+            if (vault[Coin.NICKEL] < changeCoins.findAll { it == Coin.NICKEL}.size()) return true
+            false
+        }
     }
 }
