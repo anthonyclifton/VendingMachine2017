@@ -3,35 +3,37 @@ package com.anthonyclifton.vendingmachine
 import java.math.MathContext
 
 class VendingMachine {
-    private static String INSERT_COIN = 'INSERT COIN'
-    private static String THANK_YOU = 'THANK YOU'
-    private static String SOLD_OUT = 'SOLD OUT'
-    private static String EXACT_CHANGE = 'EXACT CHANGE ONLY'
+    private static final String INSERT_COIN = 'INSERT COIN'
+    private static final String THANK_YOU = 'THANK YOU'
+    private static final String SOLD_OUT = 'SOLD OUT'
+    private static final String EXACT_CHANGE = 'EXACT CHANGE ONLY'
 
-    private static BigDecimal DIME_VALUE = 0.10
-    private static BigDecimal QUARTER_VALUE = 0.25
-    private static BigDecimal NICKEL_VALUE = 0.05
+    private static final BigDecimal DIME_SIZE_MM = 17.91
+    private static final BigDecimal DIME_WEIGHT_GRAMS = 2.268
 
-    DisplayState currentState = DisplayState.WAITING
-    BigDecimal currentAmount = 0.0
+    private static final BigDecimal QUARTER_SIZE_MM = 24.26
+    private static final BigDecimal QUARTER_WEIGHT_GRAMS = 5.67
+
+    private static final BigDecimal NICKEL_SIZE_MM = 21.21
+    private static final BigDecimal NICKEL_WEIGHT_GRAMS = 5.0
+
+    private static final BigDecimal DIME_VALUE = 0.10
+    private static final BigDecimal QUARTER_VALUE = 0.25
+    private static final BigDecimal NICKEL_VALUE = 0.05
+
+    private DisplayState currentState = DisplayState.WAITING
+    private BigDecimal currentAmount = 0.0
     List<Coin> coinReturn = []
     List<Product> dispenser = []
-    Product lastProduct
-    Map<Product, Integer> inventory = [:]
-    Map<Coin, Integer> vault = [:]
+    private Product lastProduct
+    private Map<Product, Integer> inventory = [:]
+    private Map<Coin, Integer> vault = [:]
 
 
-    // TODO: Add collector list and when we flush it, sort these into the vault by size and weight
     void insertCoin(Coin coin) {
-        if (Coin.DIME.sizeInMillimeters == coin.sizeInMillimeters && Coin.DIME.weightInGrams == coin.weightInGrams) {
-            currentAmount += DIME_VALUE
-        } else if (Coin.QUARTER.sizeInMillimeters == coin.sizeInMillimeters && Coin.QUARTER.weightInGrams == coin.weightInGrams) {
-            currentAmount += QUARTER_VALUE
-        } else if (Coin.NICKEL.sizeInMillimeters == coin.sizeInMillimeters && Coin.NICKEL.weightInGrams == coin.weightInGrams) {
-            currentAmount += NICKEL_VALUE
-        } else {
-            coinReturn << coin
-        }
+        BigDecimal coinValue = getCoinValue(coin)
+        if (coinValue == 0.00) coinReturn << coin
+        currentAmount += coinValue
     }
 
     void pressButton(Product product) {
@@ -73,12 +75,19 @@ class VendingMachine {
         }
     }
 
+    private static BigDecimal getCoinValue(Coin coin) {
+        if (coin.sizeInMillimeters == NICKEL_SIZE_MM && coin.weightInGrams == NICKEL_WEIGHT_GRAMS) return NICKEL_VALUE
+        if (coin.sizeInMillimeters == DIME_SIZE_MM && coin.weightInGrams == DIME_WEIGHT_GRAMS) return DIME_VALUE
+        if (coin.sizeInMillimeters == QUARTER_SIZE_MM && coin.weightInGrams == QUARTER_WEIGHT_GRAMS) return QUARTER_VALUE
+        return 0.00
+    }
+
     private static List<Coin> makeChange(BigDecimal change) {
         List<Coin> coins = []
 
-        int quarters = change / 0.25
-        int dimes = (change - quarters * 0.25) / 0.10
-        int nickels = (change - (quarters * 0.25) - (dimes * 0.10)) / 0.05
+        int quarters = change / QUARTER_VALUE
+        int dimes = (change - quarters * QUARTER_VALUE) / DIME_VALUE
+        int nickels = (change - (quarters * QUARTER_VALUE) - (dimes * DIME_VALUE)) / NICKEL_VALUE
 
         if (quarters) (1..quarters).each { coins.add(Coin.QUARTER) }
         if (dimes) (1..dimes).each { coins.add(Coin.DIME) }

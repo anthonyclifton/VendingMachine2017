@@ -22,10 +22,10 @@ enum Coin {
     NICKEL(21.21, 5.0),
     PENNY(19.05, 2.5)
 
-    float sizeInMillimeters
-    float weightInGrams
+    BigDecimal sizeInMillimeters
+    BigDecimal weightInGrams
 
-    Coin(float sizeInMillimeters, float weightInGrams) {
+    Coin(BigDecimal sizeInMillimeters, BigDecimal weightInGrams) {
         this.sizeInMillimeters = sizeInMillimeters
         this.weightInGrams = weightInGrams
     }
